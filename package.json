@@ -1,0 +1,32 @@
+{
+  "name": "game-bro",
+  "version": "0.0.1",
+  "description": "For finding fellow game bros (and bro-ettes)",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/duncan-iaria/game-bro.git"
+  },
+  "keywords": [
+    "Game",
+    "Bro",
+    "Bromance",
+    "Gaming"
+  ],
+  "author": "duncan iaria",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/duncan-iaria/game-bro/issues"
+  },
+  "homepage": "https://github.com/duncan-iaria/game-bro#readme",
+  "devDependencies": {
+    "css-loader": "^0.28.4",
+    "file-loader": "^0.11.2",
+    "sass-loader": "^6.0.6",
+    "style-loader": "^0.18.2",
+    "webpack": "^3.4.1"
+  }
+}
