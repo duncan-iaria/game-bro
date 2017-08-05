@@ -6,7 +6,8 @@ const express = require( 'express' );
 const server = express();
 const PORT = process.env.PORT || 8001;
 
-server.use( express.static( path.join( __dirname, 'views/assets' ) ) );
+//middleware for our static files (such as js and css)
+server.use( express.static( path.join( __dirname, 'views/assets/build' ) ) );
 
 server.get( '/', onHomeRoute );
 
