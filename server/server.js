@@ -4,6 +4,7 @@ const express = require( 'express' );
 
 const indexRoute = require( './routes/index-route' );
 const apiRoute = require( './routes/api-route' );
+const surveyRoute = require( './routes/survey-route.js' );
 
 const server = express();
 const PORT = process.env.PORT || 8001;
@@ -18,6 +19,7 @@ server.set( 'view engine', 'pug' );
 //routes
 server.use( '/', indexRoute );
 server.use( '/api', apiRoute );
+server.use( '/survey', surveyRoute );
 
 server.listen( PORT, onServerInit );
 
