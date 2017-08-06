@@ -3,6 +3,14 @@ extends layout
 block content
     h1= surveyText
     each question in questions
-        li= question.question
-
-    script(src="survey.js")
+        div.question-container
+            div.question-text
+                p= question.question
+            div.question-buttons(data-id= question.id)
+                div.question-button( data-value= 1 )
+                div.question-button( data-value= 2 )
+                div.question-button( data-value= 3 )
+                div.question-button( data-value= 4 )
+                div.question-button( data-value= 5 )
+                
+    script(src="./survey.js")

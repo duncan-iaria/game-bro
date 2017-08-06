@@ -1,0 +1,68 @@
+$borderColor: #aaa;
+$goldenRatio: 1.6180339887498948482;
+$questionBoxWidth: 400px;
+$questionPadding: 10px;
+$buttonSize: 40px;
+
+@mixin buttonScaling
+{
+    @for $i from 1 through 5
+    {
+        &:nth-child( #{$i} ) 
+        {
+            width: #{ $buttonSize * ( $i * .25 ) };
+            height: #{ $buttonSize * ( $i * .25 ) };
+        }
+    }
+}
+
+.question-container
+{
+    position: relative;
+
+    width: $questionBoxWidth;
+    height: #{ $questionBoxWidth / $goldenRatio };
+
+    border: 1px solid $borderColor;
+
+    margin-bottom: 10px;
+
+    .question-text
+    {
+        width: 100%;
+        height: 40%;
+        box-sizing: border-box;
+
+        padding: $questionPadding;
+        text-align: center;
+    }
+
+    .question-buttons
+    {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        width: 100%;
+        height: 60%;
+        box-sizing: border-box;
+
+        text-align: center;
+
+        background-color: red;
+        padding: $questionPadding;
+
+        .question-button
+        {
+            @include buttonScaling;
+            display: inline-block;
+            margin-left: 16px;
+
+            cursor: pointer;
+
+            border-radius: 50%;
+            border: 1px solid blue;
+            background-color: transparent;
+        }
+    }
+}
