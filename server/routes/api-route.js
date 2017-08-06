@@ -1,7 +1,7 @@
 const express = require( 'express' );
 const router = express.Router();
 
-router.get( '/api', onApiHomeRoute );
+router.get( '/', onApiHomeRoute );
 
 function onApiHomeRoute( tRequenst, tResponse )
 {

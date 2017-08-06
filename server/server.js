@@ -2,8 +2,8 @@ const bodyParser = require( 'body-parser' );
 const path = require( 'path' );
 const express = require( 'express' );
 
-const htmlRoutes = require( './routes/html-routes' );
-const apiRoutes = require( './routes/api-routes' );
+const indexRoute = require( './routes/index-route' );
+const apiRoute = require( './routes/api-route' );
 
 const server = express();
 const PORT = process.env.PORT || 8001;
@@ -16,8 +16,8 @@ server.set( 'views', path.join( __dirname, 'views' ) );
 server.set( 'view engine', 'pug' );
 
 //routes
-server.use( '/', htmlRoutes );
-server.use( '/', apiRoutes );
+server.use( '/', indexRoute );
+server.use( '/api', apiRoute );
 
 server.listen( PORT, onServerInit );
 
