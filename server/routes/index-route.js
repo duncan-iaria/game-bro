@@ -1,3 +1,6 @@
+//=========================
+//  HOME (INDEX) PAGE ROUTE
+//=========================
 const express = require( 'express' );
 const router = express.Router();
 

@@ -1,3 +1,6 @@
+//=========================
+//  BASE API ROUTE
+//=========================
 const express = require( 'express' );
 const router = express.Router();
 

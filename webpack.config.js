@@ -2,11 +2,15 @@ const path = require('path');
 
 module.exports = 
 {
-    entry: './server/views/assets/js/main.js',
+    entry: 
+    {
+        main: './server/views/assets/js/main.js',
+        survey: './server/views/assets/js/survey.js'
+    },
     // target: 'node',
     output: 
     {
-        filename: 'bundle.js',
+        filename: '[name].js',
         path: path.resolve( __dirname + '/server/views/assets', 'build' )
     },
     
