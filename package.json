@@ -33,6 +33,7 @@
     "webpack": "^3.4.1"
   },
   "dependencies": {
-    "body-parser": "^1.17.2"
+    "body-parser": "^1.17.2",
+    "pug": "^2.0.0-rc.3"
   }
 }

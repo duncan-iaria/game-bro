@@ -10,7 +10,8 @@ router.get( '/test', onTestRoute );
 function onHomeRoute( tRequest, tResponse )
 {
     console.log( "you made it!" );
-    onFileRead( 'server/views/index.html', tResponse );
+    tResponse.render( 'index', { title: "Game Bros"} );
+    //onFileRead( 'server/views/index.html', tResponse );
 }
 
 function onTestRoute( tRequest, tResponse )
