@@ -1,9 +1,9 @@
 const express = require( 'express' );
 const router = express.Router();
 
-router.get( '/', onApiHomeRoute );
+router.get( '/', onApiIndex );
 
-function onApiHomeRoute( tRequenst, tResponse )
+function onApiIndex( tRequenst, tResponse )
 {
     tResponse.end( "api docs" );
 }
