@@ -29,7 +29,7 @@ module.exports =
             else
             {
                 console.log( 'user successfully added' );
-                tResponse.send( 'ok' );
+                tResponse.json( { status: 'ok', id: tData.insertId } );
             }      
         }
     },

@@ -10,10 +10,8 @@ const surveyRoute = require( './routes/survey-route.js' );
 //server
 const server = express();
 const PORT = process.env.PORT || 8001;
+const router = express.Router();
 
-//=========================
-//  MIDDLEWARE
-//=========================
 server.use( express.static( path.join( __dirname, 'views/assets/build' ) ) );
 server.use( bodyParser.urlencoded( { extended: true } ) );
 server.use( bodyParser.json() );
