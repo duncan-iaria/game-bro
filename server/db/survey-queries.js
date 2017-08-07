@@ -13,7 +13,42 @@ module.exports =
         function onQuestionQueryComplete( tError, tData )
         {
             tCallback( tResponse, tData );
-            //tResponse.json( tData );
         }   
+    },
+
+    addNewUser: function( tUser, tResponse )
+    {
+        connection.query( "INSERT INTO users SET ?", tUser, onAddUserComplete );
+        
+        function onAddUserComplete( tError, tData )
+        {
+            if( tError )
+            {
+                console.log( 'error on inserting user: ' + tError );
+            }
+            else
+            {
+                console.log( 'user successfully added' );
+                tResponse.send( 'ok' );
+            }      
+        }
+    },
+
+    addNewAnswerSet: function( tAnswers, tResponse )
+    {
+        connection.query( "INSERT INTO answers SET ?", tAnswers, onAddAnswersComplete );
+        
+        function onAddUserComplete( tError, tData )
+        {
+            if( tError )
+            {
+                console.log( 'error on inserting answers: ' + tError );
+            }
+            else
+            {
+                console.log( 'answers successfully added' );
+                tResponse.send( 'ok' );
+            }      
+        }
     }
 }
