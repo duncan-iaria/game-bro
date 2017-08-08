@@ -12,7 +12,6 @@ var surveyController = ( function()
     {
         init: init,
         answers: answers,
-        postAnswers: postAnswers,
     }
 
     return publicAPI;
@@ -66,7 +65,6 @@ var surveyController = ( function()
                 //console.log( 'removed some selected ' + tElement.classList );
                 tElement.classList.remove( 'selected' );
             }
-            console.log( tElement );
         }
 
         //console.log( 'added selected ' + tTarget.classList );
@@ -102,23 +100,25 @@ var surveyController = ( function()
         tempUser.imgUrl = document.getElementById( 'user-img-url' ).value;
         
         //first submit user to the db
-        postData( 'user', tempUser, function(){ onPostUserCompete } );
+        postData( 'user', tempUser, onPostUserCompete );
+    } 
 
-        //function to add answers to the db associated with the correct user
-        function postAnswers( tUrl, tUserId, tAnswers )
-        {
-            //build answer obj (add user id to it)
-            tAnswers.userId = tUserId;
-
-            //post the data
-            postData( tUrl, tAnswers, onPostCompete );
-        }
-
-    }  
-
-    //TODO break this up for all posts
-    function postData( tUrl, tData, tCallback )
+    //=========================
+    //  SERVER POSTS
+    //=========================
+    //function to add answers to the db associated with the correct user
+    function postAnswers( tUrl, tUserId, tAnswers )
     {
+        //build answer obj (add user id to it)
+        tAnswers.userId = tUserId;
+
+        //post the data
+        postData( tUrl, tAnswers, onPostCompete );
+    }
+
+    //GENERIC POST
+    function postData( tUrl, tData, tCallback )
+    {      
         const tempUrl = "./survey/" + tUrl;
         const tempMethod = "POST";
 
@@ -130,10 +130,16 @@ var surveyController = ( function()
         tempRequest.open( tempMethod, tempUrl, tempAsync );
         tempRequest.setRequestHeader( "Content-Type", "application/json;charset=UTF-8" );
         tempRequest.send( JSON.stringify( tData ) );
-
-        console.log( 'we sent the stuff' );
+    }
+    
+    //generic callback when post has completed(for sending back codes)
+    function onPostCompete( tRequest )
+    {
+        const tempStatus = tRequest.status;
+        console.log( 'server got the stuff ' + tempStatus );
     }
 
+    //when done posting the user, post the associated answers
     function onPostUserCompete( tRequest )
     {
         onPostCompete( tRequest );
@@ -143,13 +149,6 @@ var surveyController = ( function()
         tempData = JSON.parse( tempData );
 
         postAnswers( 'answers', tempData.id, answers );
-    }
-
-    //generic callback when post has completed( for sending back codes)
-    function onPostCompete( tRequest )
-    {
-        const tempStatus = tRequest.status;
-        console.log( 'server got the stuff ' + tempStatus );
     }
 
 })();

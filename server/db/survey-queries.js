@@ -38,7 +38,7 @@ module.exports =
     {
         connection.query( "INSERT INTO answers SET ?", tAnswers, onAddAnswersComplete );
         
-        function onAddUserComplete( tError, tData )
+        function onAddAnswersComplete( tError, tData )
         {
             if( tError )
             {
@@ -47,7 +47,7 @@ module.exports =
             else
             {
                 console.log( 'answers successfully added' );
-                tResponse.send( 'ok' );
+                tResponse.json( { status: 'ok' } );
             }      
         }
     }

@@ -56,7 +56,10 @@ function onUserSubmit( tRequest, tResponse )
 
 function onAnswerSubmit( tRequest, tResponse )
 {
-    //surveyQueries
+    console.log( 'oh man we got answers here boss' );
+    console.log( tRequest.body );
+
+    surveyQueries.addNewAnswerSet( tRequest.body, tResponse );
 }
 
 module.exports = router;
