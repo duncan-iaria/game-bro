@@ -12,6 +12,7 @@ var surveyController = ( function()
     {
         init: init,
         answers: answers,
+        postAnswers: postAnswers,
     }
 
     return publicAPI;
@@ -101,12 +102,15 @@ var surveyController = ( function()
         tempUser.imgUrl = document.getElementById( 'user-img-url' ).value;
         
         //first submit user to the db
-        postData( 'user', tempUser, onPostUserCompete );
+        postData( 'user', tempUser, function(){ onPostUserCompete } );
 
         //function to add answers to the db associated with the correct user
         function postAnswers( tUrl, tUserId, tAnswers )
         {
+            //build answer obj (add user id to it)
             tAnswers.userId = tUserId;
+
+            //post the data
             postData( tUrl, tAnswers, onPostCompete );
         }
 
