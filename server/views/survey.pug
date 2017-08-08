@@ -1,16 +1,24 @@
 extends layout
 
 block content
-    h1= surveyText
+    h1.survey-title= surveyText
+
+    div.user-form
+        p='Name:'
+            input#user-name( type="text" )
+        p='Img URL:'
+            input#user-img-url( type="text" ) 
+    
     each question in questions
         div.question-container
             div.question-text
                 p= question.question
-            div.question-buttons(data-id= question.id)
-                div.question-button( data-value= 1 )
-                div.question-button( data-value= 2 )
-                div.question-button( data-value= 3 )
-                div.question-button( data-value= 4 )
-                div.question-button( data-value= 5 )
-                
+            div.question-buttons( data-id = question.id )
+                div.question-button( data-value = 1 )
+                div.question-button( data-value = 2 )
+                div.question-button( data-value = 3 )
+                div.question-button( data-value = 4 )
+                div.question-button( data-value = 5 )
+
+    button#submit-survey Submit
     script(src="./survey.js")
