@@ -101,37 +101,51 @@ var surveyController = ( function()
         tempUser.imgUrl = document.getElementById( 'user-img-url' ).value;
         
         //first submit user to the db
-        onAddUser( tempUser );
+        postData( 'user', tempUser, onPostUserCompete );
 
-        //then submit answers to the db
+        //function to add answers to the db associated with the correct user
+        function postAnswers( tUrl, tUserId, tAnswers )
+        {
+            tAnswers.userId = tUserId;
+            postData( tUrl, tAnswers, onPostCompete );
+        }
 
     }  
 
-    function onAddUser( tUser )
+    //TODO break this up for all posts
+    function postData( tUrl, tData, tCallback )
     {
-        const url = "./survey/user";
-        const method = "POST";
+        const tempUrl = "./survey/" + tUrl;
+        const tempMethod = "POST";
 
-        const async = true;
-        const request = new XMLHttpRequest();
+        const tempAsync = true;
+        const tempRequest = new XMLHttpRequest();
 
-        request.onload = function()
-        {
-            const status = request.status; // HTTP response status, e.g., 200 for "200 OK"
-            
-            //getting the new user ID back from the server
-            let data = request.response;
-            data = JSON.parse( data );
+        tempRequest.onload = function(){ tCallback( tempRequest ) };
 
-            console.log( 'server got the stuff ' + status );
-            console.log( 'server got the stuff ' + data.id );           
-        }
-
-        request.open( method, url, async );
-        request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-        request.send( JSON.stringify( tUser ) );
+        tempRequest.open( tempMethod, tempUrl, tempAsync );
+        tempRequest.setRequestHeader( "Content-Type", "application/json;charset=UTF-8" );
+        tempRequest.send( JSON.stringify( tData ) );
 
         console.log( 'we sent the stuff' );
+    }
+
+    function onPostUserCompete( tRequest )
+    {
+        onPostCompete( tRequest );
+        
+        //getting the new user ID back from the server
+        let tempData = tRequest.response;
+        tempData = JSON.parse( tempData );
+
+        postAnswers( 'answers', tempData.id, answers );
+    }
+
+    //generic callback when post has completed( for sending back codes)
+    function onPostCompete( tRequest )
+    {
+        const tempStatus = tRequest.status;
+        console.log( 'server got the stuff ' + tempStatus );
     }
 
 })();

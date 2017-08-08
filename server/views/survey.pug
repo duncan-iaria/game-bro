@@ -1,9 +1,14 @@
 extends layout
 
 block content
-    h1= surveyText
-    input#user-name( type="text" )
-    input#user-img-url( type="text" ) 
+    h1.survey-title= surveyText
+
+    div.user-form
+        p='Name:'
+            input#user-name( type="text" )
+        p='Img URL:'
+            input#user-img-url( type="text" ) 
+    
     each question in questions
         div.question-container
             div.question-text
