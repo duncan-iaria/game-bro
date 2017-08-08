@@ -26,6 +26,8 @@ router.use( function( tRequest, tResponse, tNext )
 // ROUTES
 //=========================
 router.get( '/', onSurveyRoute );
+router.get( '/match/:userId', onGetMatch );
+
 router.post( '/user', onUserSubmit );
 router.post( '/answers', onAnswerSubmit );
 
@@ -60,6 +62,19 @@ function onAnswerSubmit( tRequest, tResponse )
     console.log( tRequest.body );
 
     surveyQueries.addNewAnswerSet( tRequest.body, tResponse );
+}
+
+function onGetMatch( tRequest, tResponse )
+{
+    console.log( 'user id =  ' + tRequest.params.userId );
+    surveyQueries.getMatch( tRequest.params.userId, tResponse, onGetMatchComplete );
+}
+
+function onGetMatchComplete( tResponse, tData )
+{   
+    //return the match from the server
+    console.log( tData );
+    tResponse.json( tData );
 }
 
 module.exports = router;

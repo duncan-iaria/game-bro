@@ -50,5 +50,27 @@ module.exports =
                 tResponse.json( { status: 'ok' } );
             }      
         }
+    },
+
+    getMatch: function( tUserId, tResponse, tCallback )
+    {
+        connection.query
+        ( 
+            'SELECT users.name, users.imgUrl, answers.answer1, answers.answer2, answers.answer3 ,answers.answer4, ' + 
+            'answers.answer5,answers.answer6,answers.answer7,answers.answer8, answers.answer9, answers.answer10 ' +
+            'FROM answers ' +
+            'INNER JOIN users ON answers.userId = users.id;',
+            calculateMatch
+        )
+
+        function calculateMatch( tError, tData )
+        {
+            if( tError )
+            {
+                console.log( "there was an error with the query: " + tError );
+            }
+            //console.log( tData );
+            tCallback( tResponse, tData );
+        }
     }
-}
+}   

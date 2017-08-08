@@ -7,6 +7,7 @@ import '../scss/survey.scss';
 var surveyController = ( function()
 {
     const answers = {};
+    let userId;
 
     const publicAPI = 
     {
@@ -113,7 +114,7 @@ var surveyController = ( function()
         tAnswers.userId = tUserId;
 
         //post the data
-        postData( tUrl, tAnswers, onPostCompete );
+        postData( tUrl, tAnswers, onPostAnswersComplete );
     }
 
     //GENERIC POST
@@ -133,7 +134,7 @@ var surveyController = ( function()
     }
     
     //generic callback when post has completed(for sending back codes)
-    function onPostCompete( tRequest )
+    function onRequestComplete( tRequest )
     {
         const tempStatus = tRequest.status;
         console.log( 'server got the stuff ' + tempStatus );
@@ -142,13 +143,46 @@ var surveyController = ( function()
     //when done posting the user, post the associated answers
     function onPostUserCompete( tRequest )
     {
-        onPostCompete( tRequest );
+        onRequestComplete( tRequest );
         
         //getting the new user ID back from the server
         let tempData = tRequest.response;
         tempData = JSON.parse( tempData );
+        userId = tempData.id;
 
-        postAnswers( 'answers', tempData.id, answers );
+        postAnswers( 'answers', userId, answers );
+    }
+
+    function onPostAnswersComplete( tRequest )
+    {
+        const tempUrl = 'match/' + userId;
+        getData( tempUrl, onGetComplete );
+    }
+
+    //=========================
+    //  SERVER GETS
+    //=========================
+    function getData( tUrl, tCallback )
+    {
+        const tempUrl = "./survey/" + tUrl;
+        const tempMethod = "GET";
+
+        const tempAsync = true;
+        const tempRequest = new XMLHttpRequest();
+
+        tempRequest.onload = function(){ tCallback( tempRequest ) };
+
+        tempRequest.open( tempMethod, tempUrl, tempAsync );
+        tempRequest.send( null );
+    }
+
+    //generic get complete
+    function onGetComplete( tRequest )
+    {
+        let tempData = tRequest.response;
+        tempData = JSON.parse( tempData );
+
+        console.log( tempData );
     }
 
 })();

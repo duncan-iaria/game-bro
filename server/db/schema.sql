@@ -35,6 +35,9 @@ CREATE TABLE answers
 INSERT INTO answers ( userId, answer1, answer2, answer3, answer4, answer5, answer6, answer7, answer8, answer9, answer10 )
 VALUES
 ( 1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5 );
+( 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 5 );
+( 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3 );
+
 
 DROP TABLE IF EXISTS questions;
 CREATE TABLE questions
@@ -49,3 +52,9 @@ VALUES
 ( "You like to game, bro?" ),
 ( "Are you a bro, or a bro-ette?" ),
 ( "That doesn't make any sense, does it?" );
+
+
+--INNER JOIN FOR USERNAMES AND ANSWERS
+SELECT users.name, users.imgUrl, answers.answer1, answers.answer2, answers.answer3 ,answers.answer4, answers.answer5,answers.answer6,answers.answer7,answers.answer8, answers.answer9, answers.answer10
+FROM answers
+INNER JOIN users ON answers.userId = users.id;
