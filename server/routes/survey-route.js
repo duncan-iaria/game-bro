@@ -73,7 +73,7 @@ function onGetMatch( tRequest, tResponse )
 function onGetMatchComplete( tResponse, tData )
 {   
     //return the match from the server
-    console.log( tData );
+    //console.log( tData );
     tResponse.json( tData );
 }
 

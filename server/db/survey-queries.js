@@ -1,5 +1,20 @@
 const connection = require( './connections' );
 
+//how many questions are in the db (shouldn't hard code this, but here we are)
+const maxQuestions = 10;
+
+//return the user id that matches from a collection of users
+function getUserById( tId, tUsers )
+{
+    tUsers.forEach( function( tempUser )
+    {
+        if( tempUser.id = tId )
+        {
+            return tempUser;
+        }
+    });
+}
+
 //=========================
 //  QUERIES
 //=========================
@@ -52,11 +67,12 @@ module.exports =
         }
     },
 
+    //TODO - clean this up!
     getMatch: function( tUserId, tResponse, tCallback )
     {
         connection.query
         ( 
-            'SELECT users.name, users.imgUrl, answers.answer1, answers.answer2, answers.answer3 ,answers.answer4, ' + 
+            'SELECT users.id, users.name, users.imgUrl, answers.answer1, answers.answer2, answers.answer3 ,answers.answer4, ' + 
             'answers.answer5,answers.answer6,answers.answer7,answers.answer8, answers.answer9, answers.answer10 ' +
             'FROM answers ' +
             'INNER JOIN users ON answers.userId = users.id;',
@@ -65,11 +81,59 @@ module.exports =
 
         function calculateMatch( tError, tData )
         {
+            let tempCurrentUser;
+            
+            //loop through and assign current user    
+            tData.forEach( function( tempUser ){ getCurrentUser( tempUser ) } );
+
+            function getCurrentUser( tUser )
+            {                
+                if( tUser.id == tUserId )
+                {
+                    console.log( ' found the current user!' + tUser );
+                    //return tUser
+                    tempCurrentUser = tUser;
+                }
+            }
+
+            console.log( 'current user is ' + tempCurrentUser );
+
             if( tError )
             {
                 console.log( "there was an error with the query: " + tError );
             }
             //console.log( tData );
+            let tempMatch;
+            tData.forEach( function( tempUser ){ compareUser( tempUser ) } );
+
+            function compareUser( tUser )
+            {
+                //console.log( 'the current user = ' + tempCurrentUser );
+                //if its not the current user(dont compare self)
+                if( tUser.id != tempCurrentUser.id )
+                {
+                    let currentLowestDiff = 100;
+                    let currentMatch = null;
+                    //loop through all the answers in the db
+                    for( let i = 1; i < maxQuestions; ++i )
+                    {
+                        //get the absolute value of the difference
+                        let tempDiff = Math.abs( parseInt( tempCurrentUser[ 'answer' + i ] )  - parseInt( tUser[ 'answer' + i ] ) );
+                        if( tempDiff < currentLowestDiff )
+                        {
+                            tempDiff = currentLowestDiff;
+                            currentMatch = tUser;
+                        }
+                    }
+
+                    tempMatch = currentMatch;
+                    //return the lowest diff person
+                    //return currentMatch;
+                }
+            }
+
+            console.log( 'THE MATCH IS = ' + tempMatch.name );
+
             tCallback( tResponse, tData );
         }
     }

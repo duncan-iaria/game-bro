@@ -34,8 +34,8 @@ CREATE TABLE answers
 
 INSERT INTO answers ( userId, answer1, answer2, answer3, answer4, answer5, answer6, answer7, answer8, answer9, answer10 )
 VALUES
-( 1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5 );
-( 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 5 );
+( 1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5 ),
+( 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 5 ),
 ( 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3 );
 
 
