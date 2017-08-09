@@ -2,12 +2,17 @@
 //  SURVEY PAGE JS
 //=========================
 import '../scss/survey.scss';
+import '../scss/modal.scss';
 
 //survey controller module declaration
 var surveyController = ( function()
 {
     const answers = {};
     let userId;
+
+    let matchModal;
+    let matchNameView;
+    let matchImgView;
 
     const publicAPI = 
     {
@@ -24,12 +29,21 @@ var surveyController = ( function()
     {
         initSurveyButtons();
         initSubmitButton();
+        initMatchModal();
     }
     
     //can be used to attatch any handler to any elementt
     function attachClickHandler( tButton, tHandler )
     {
         tButton.addEventListener( 'click', tHandler );
+    }
+
+    //set up the match modal
+    function initMatchModal()
+    {
+        matchModal = document.getElementById( 'match-modal' );
+        matchNameView = document.getElementById( 'match-name' );
+        matchImgView = document.getElementById( 'match-img' );
     }
 
     //=========================
@@ -156,7 +170,7 @@ var surveyController = ( function()
     function onPostAnswersComplete( tRequest )
     {
         const tempUrl = 'match/' + userId;
-        getData( tempUrl, onGetComplete );
+        getData( tempUrl, onGetMatchComplete );
     }
 
     //=========================
@@ -183,6 +197,17 @@ var surveyController = ( function()
         tempData = JSON.parse( tempData );
 
         console.log( tempData );
+    }
+
+    function onGetMatchComplete( tRequest )
+    {
+        let tempData = tRequest.response;
+        tempData = JSON.parse( tempData );
+
+        console.log( 'the match is ' + tempData.name );
+        matchNameView.innerHTML = tempData.name;
+        matchImgView.src = tempData.imgUrl;
+        matchModal.classList.toggle( 'modal-hidden' );
     }
 
 })();

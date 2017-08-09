@@ -3,18 +3,6 @@ const connection = require( './connections' );
 //how many questions are in the db (shouldn't hard code this, but here we are)
 const maxQuestions = 10;
 
-//return the user id that matches from a collection of users
-function getUserById( tId, tUsers )
-{
-    tUsers.forEach( function( tempUser )
-    {
-        if( tempUser.id = tId )
-        {
-            return tempUser;
-        }
-    });
-}
-
 //=========================
 //  QUERIES
 //=========================
@@ -81,39 +69,37 @@ module.exports =
 
         function calculateMatch( tError, tData )
         {
+            if( tError )
+            {
+                console.log( "there was an error with the query: " + tError );
+            }
+
             let tempCurrentUser;
+            let tempMatch;
             
             //loop through and assign current user    
             tData.forEach( function( tempUser ){ getCurrentUser( tempUser ) } );
+
+            //compare all the users and assign match
+            tData.forEach( function( tempUser ){ compareUser( tempUser ) } );
 
             function getCurrentUser( tUser )
             {                
                 if( tUser.id == tUserId )
                 {
-                    console.log( ' found the current user!' + tUser );
                     //return tUser
                     tempCurrentUser = tUser;
                 }
             }
 
-            console.log( 'current user is ' + tempCurrentUser );
-
-            if( tError )
-            {
-                console.log( "there was an error with the query: " + tError );
-            }
-            //console.log( tData );
-            let tempMatch;
-            tData.forEach( function( tempUser ){ compareUser( tempUser ) } );
-
             function compareUser( tUser )
             {
-                //console.log( 'the current user = ' + tempCurrentUser );
                 //if its not the current user(dont compare self)
                 if( tUser.id != tempCurrentUser.id )
                 {
                     let currentLowestDiff = 100;
                     let currentMatch = null;
+
                     //loop through all the answers in the db
                     for( let i = 1; i < maxQuestions; ++i )
                     {
@@ -134,7 +120,7 @@ module.exports =
 
             console.log( 'THE MATCH IS = ' + tempMatch.name );
 
-            tCallback( tResponse, tData );
+            tCallback( tResponse, tempMatch );
         }
     }
 }   

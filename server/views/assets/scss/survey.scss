@@ -3,6 +3,7 @@ $goldenRatio: 1.6180339887498948482;
 $questionBoxWidth: 400px;
 $questionPadding: 10px;
 $buttonSize: 40px;
+$buttonColor: #DD482A;
 
 @mixin buttonScaling
 {
@@ -65,7 +66,7 @@ $buttonSize: 40px;
 
         text-align: center;
 
-        background-color: red;
+        background-color: #ddd;
         padding: $questionPadding;
 
         .question-button
@@ -77,14 +78,14 @@ $buttonSize: 40px;
             cursor: pointer;
 
             border-radius: 50%;
-            border: 1px solid blue;
+            border: 1px solid $buttonColor;
             background-color: transparent;
         }
 
         .question-button.selected
         {
-            border: 1px solid yellow;
-            background-color: yellow;
+            border: 1px solid $buttonColor;
+            background-color: $buttonColor;
         }
     }
 }
