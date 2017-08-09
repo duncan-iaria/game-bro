@@ -20,18 +20,18 @@ $buttonColor: #DD482A;
     {
         margin: 20px;
     }
+}
 
+.button
+{
+    text-align: center;
+    border: 0px;
+    padding: 10px;
+    cursor: pointer;
     
-    .button
-    {
-        border: 0px;
-        padding: 10px;
-        cursor: pointer;
-        
-        text-decoration: none;
-        font-weight: bold;
-        color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    color: #fff;
 
-        background-color: $buttonColor;
-    }
+    background-color: $buttonColor;
 }

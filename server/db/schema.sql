@@ -50,8 +50,15 @@ CREATE TABLE questions
 INSERT INTO questions ( question )
 VALUES
 ( "You like to game, bro?" ),
-( "Are you a bro, or a bro-ette?" ),
-( "That doesn't make any sense, does it?" );
+( "Bro, you a hardcore gamer?" ),
+( "How do you feel about co-op games?" ),
+( "How about action games?" ),
+( "Are you okay with chill games?" ),
+( "Do you like simulations?" ),
+( "How are you at solving puzzles?" ),
+( "Do you even race, bro?" ),
+( "On a scale of 1 to bro, how tite is Sonic!?" ),
+( "How excited are you to meet a new gamer bro or brodette?!?" );
 
 
 --INNER JOIN FOR USERNAMES AND ANSWERS
