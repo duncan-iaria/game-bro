@@ -55,9 +55,9 @@ module.exports =
         }
     },
 
-    //TODO - clean this up!
     getMatch: function( tUserId, tResponse, tCallback )
     {
+        //get the users and their answer scores from the db, then calculate the match from those
         connection.query
         ( 
             'SELECT users.id, users.name, users.imgUrl, answers.answer1, answers.answer2, answers.answer3 ,answers.answer4, ' + 
@@ -84,15 +84,19 @@ module.exports =
             //compare all the users and assign match
             tData.forEach( function( tempUser ){ compareUser( tempUser ) } );
 
+            //function ends, or returns - here
+            tCallback( tResponse, tempMatch );
+
+            //get the current user (what we compare from)
             function getCurrentUser( tUser )
             {                
                 if( tUser.id == tUserId )
                 {
-                    //return tUser
                     tempCurrentUser = tUser;
                 }
             }
-
+            
+            //calculate difference
             function compareUser( tUser )
             {
                 //if its not the current user(dont compare self)
@@ -118,15 +122,9 @@ module.exports =
 
                         //assign the current user as the lowest
                         tempMatch = tUser;
-                        //console.log( `tempMatch assigned as ${ tUser.name }` );
-                    
                     }
                 }
             }
-
-            console.log( 'THE MATCH IS = ' + tempMatch.name );
-
-            tCallback( tResponse, tempMatch );
         }
     }
 }   
