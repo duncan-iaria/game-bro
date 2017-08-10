@@ -76,6 +76,7 @@ module.exports =
 
             let tempCurrentUser;
             let tempMatch;
+            let currentLowestDiff = 100;
             
             //loop through and assign current user    
             tData.forEach( function( tempUser ){ getCurrentUser( tempUser ) } );
@@ -97,24 +98,29 @@ module.exports =
                 //if its not the current user(dont compare self)
                 if( tUser.id != tempCurrentUser.id )
                 {
-                    let currentLowestDiff = 100;
-                    let currentMatch = null;
+                    let tempTotalDiff = 0;
 
-                    //loop through all the answers in the db
+                    //loop through all the answers in the db for the user
                     for( let i = 1; i < maxQuestions; ++i )
                     {
                         //get the absolute value of the difference
                         let tempDiff = Math.abs( parseInt( tempCurrentUser[ 'answer' + i ] )  - parseInt( tUser[ 'answer' + i ] ) );
-                        if( tempDiff < currentLowestDiff )
-                        {
-                            tempDiff = currentLowestDiff;
-                            currentMatch = tUser;
-                        }
+                        tempTotalDiff += tempDiff;
                     }
 
-                    tempMatch = currentMatch;
-                    //return the lowest diff person
-                    //return currentMatch;
+                    console.log( `tempTotalDiff of ${ tUser.name } = ${ tempTotalDiff }` );
+
+                    //compare if the diff is lowest so far, and assign if so
+                    //by the end we should have the lowest diff remaining, and that's your answer
+                    if( tempTotalDiff < currentLowestDiff )
+                    {
+                        currentLowestDiff = tempTotalDiff;
+
+                        //assign the current user as the lowest
+                        tempMatch = tUser;
+                        //console.log( `tempMatch assigned as ${ tUser.name }` );
+                    
+                    }
                 }
             }
 

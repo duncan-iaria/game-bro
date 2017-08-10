@@ -13,7 +13,7 @@ router.use( function( tRequest, tResponse, tNext )
     //prove that it's working
     console.log( 'Middleware ENGAGED!' );
     
-    //enable cors
+    //enable cors/post/put
     tResponse.header( "Access-Control-Allow-Origin", "*" );
     tResponse.header( "Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept" );
     tResponse.header( 'Access-Control-Allow-Methods', 'PUT, POST, GET, DELETE, OPTIONS' );
@@ -26,6 +26,8 @@ router.use( function( tRequest, tResponse, tNext )
 // ROUTES
 //=========================
 router.get( '/', onSurveyRoute );
+
+//consider moving this to the api route
 router.get( '/match/:userId', onGetMatch );
 
 router.post( '/user', onUserSubmit );
